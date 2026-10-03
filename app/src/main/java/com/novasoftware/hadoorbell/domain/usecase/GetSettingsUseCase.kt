@@ -16,6 +16,7 @@ class GetSettingsUseCase @Inject constructor(
             repository.streamSourceFlow,
             repository.quickReplyEntityIdFlow,
             repository.lockEntityIdFlow,
+            repository.lockAuthenticationEnabledFlow,
             repository.instantTwoWayAudioFlow,
             repository.webrtcProviderFlow
         ) { args: Array<Any?> ->
@@ -25,8 +26,9 @@ class GetSettingsUseCase @Inject constructor(
                 streamSource = args[2] as? String ?: "",
                 quickReplyEntityId = args[3] as? String ?: "",
                 lockEntityId = args[4] as? String ?: "",
-                instantTwoWayAudio = args[5] as? Boolean ?: false,
-                webrtcProvider = args[6] as? String ?: "frigate"
+                lockAuthenticationEnabled = args[5] as? Boolean ?: true,
+                instantTwoWayAudio = args[6] as? Boolean ?: false,
+                webrtcProvider = args[7] as? String ?: "frigate"
             )
         }
     }

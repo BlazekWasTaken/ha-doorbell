@@ -9,6 +9,7 @@ data class StreamUiState(
     val errorMessage: String? = null,
     val quickReplyEntityId: String = "",
     val lockEntityId: String = "",
+    val isLockAuthenticationEnabled: Boolean = true,
     val lockState: LockState = LockState.Unknown,
     val isStreamMuted: Boolean = false,
     val isSwitchingModes: Boolean = false,

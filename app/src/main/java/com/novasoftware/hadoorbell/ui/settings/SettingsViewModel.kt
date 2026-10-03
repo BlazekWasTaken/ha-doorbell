@@ -37,6 +37,7 @@ class SettingsViewModel @Inject constructor(
                     streamSource = settings.streamSource,
                     quickReplyEntityId = settings.quickReplyEntityId,
                     lockEntityId = settings.lockEntityId,
+                    lockAuthenticationEnabled = settings.lockAuthenticationEnabled,
                     instantTwoWayAudio = settings.instantTwoWayAudio,
                     webrtcProvider = settings.webrtcProvider,
                     isLoaded = true
@@ -57,6 +58,8 @@ class SettingsViewModel @Inject constructor(
         }
     }
     fun updateLockEntityId(value: String) { _uiState.update { it.copy(lockEntityId = value) } }
+    fun updateLockAuthenticationEnabled(value: Boolean) {
+        _uiState.update { it.copy(lockAuthenticationEnabled = value) } }
     fun updateInstantTwoWayAudio(value: Boolean) { _uiState.update { it.copy(instantTwoWayAudio = value) } }
     fun updateWebrtcProvider(value: String) { _uiState.update { it.copy(webrtcProvider = value) } }
 
@@ -69,6 +72,7 @@ class SettingsViewModel @Inject constructor(
                 streamSource = currentState.streamSource,
                 quickReplyEntityId = currentState.quickReplyEntityId,
                 lockEntityId = currentState.lockEntityId,
+                lockAuthenticationEnabled = currentState.lockAuthenticationEnabled,
                 instantTwoWayAudio = currentState.instantTwoWayAudio,
                 webrtcProvider = currentState.webrtcProvider
             )

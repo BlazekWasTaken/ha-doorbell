@@ -20,6 +20,7 @@ class SettingsRepositoryImpl(private val context: Context) : SettingsRepository 
         val STREAM_SOURCE = stringPreferencesKey("stream_source")
         val QUICK_REPLY_ENTITY_ID = stringPreferencesKey("quick_reply_entity_id")
         val LOCK_ENTITY_ID = stringPreferencesKey("lock_entity_id")
+        val LOCK_AUTHENTICATION_ENABLED = booleanPreferencesKey("lock_authentication_enabled")
         val INSTANT_TWO_WAY_AUDIO = booleanPreferencesKey("instant_two_way_audio")
         val WEBRTC_PROVIDER = stringPreferencesKey("webrtc_provider")
     }
@@ -29,10 +30,11 @@ class SettingsRepositoryImpl(private val context: Context) : SettingsRepository 
     override val streamSourceFlow: Flow<String?> = context.dataStore.data.map { it[STREAM_SOURCE]?.trim() }
     override val quickReplyEntityIdFlow: Flow<String?> = context.dataStore.data.map { it[QUICK_REPLY_ENTITY_ID]?.trim() }
     override val lockEntityIdFlow: Flow<String?> = context.dataStore.data.map { it[LOCK_ENTITY_ID]?.trim() }
+    override val lockAuthenticationEnabledFlow: Flow<Boolean> = context.dataStore.data.map { it[LOCK_AUTHENTICATION_ENABLED] ?: true }
     override val instantTwoWayAudioFlow: Flow<Boolean> = context.dataStore.data.map { it[INSTANT_TWO_WAY_AUDIO] ?: false }
     override val webrtcProviderFlow: Flow<String> = context.dataStore.data.map { it[WEBRTC_PROVIDER] ?: "frigate" }
 
-    override suspend fun saveSettings(url: String, token: String, source: String, quickReplyEntityId: String, lockEntityId: String, instantTwoWayAudio: Boolean, provider: String) {
+    override suspend fun saveSettings(url: String, token: String, source: String, quickReplyEntityId: String, lockEntityId: String, lockAuthenticationEnabled: Boolean, instantTwoWayAudio: Boolean, provider: String) {
         context.dataStore.edit { preferences ->
             var finalUrl = url.trim().trimEnd('/')
             if (finalUrl.isNotBlank()) {
@@ -46,6 +48,7 @@ class SettingsRepositoryImpl(private val context: Context) : SettingsRepository 
             preferences[STREAM_SOURCE] = source.trim()
             preferences[QUICK_REPLY_ENTITY_ID] = quickReplyEntityId.trim()
             preferences[LOCK_ENTITY_ID] = lockEntityId.trim()
+            preferences[LOCK_AUTHENTICATION_ENABLED] = lockAuthenticationEnabled
             preferences[INSTANT_TWO_WAY_AUDIO] = instantTwoWayAudio
             preferences[WEBRTC_PROVIDER] = provider
         }

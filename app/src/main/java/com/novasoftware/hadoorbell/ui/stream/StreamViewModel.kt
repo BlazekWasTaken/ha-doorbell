@@ -68,6 +68,9 @@ class StreamViewModel @Inject constructor(
                 _uiState.update { it.copy(lockState = LockState.fromString(stateResult.getOrNull())) }
             }
 
+            val lockAuthenticationEnabled = appPreferences.lockAuthenticationEnabledFlow.first()
+            _uiState.update { it.copy(isLockAuthenticationEnabled = lockAuthenticationEnabled) }
+
             val signalingClient = webRtcClientFactory.createClient()
             val manager = webRtcManagerFactory.create(context, signalingClient, viewModelScope)
             _uiState.update { it.copy(webRtcManager = manager) }
@@ -164,8 +167,13 @@ class StreamViewModel @Inject constructor(
         if (targetState == LockState.Locked) {
             executeLockDoor()
         } else {
-            viewModelScope.launch {
-                _uiEvent.emit(UiEvent.RequestBiometricAuth)
+            if (_uiState.value.isLockAuthenticationEnabled) {
+                viewModelScope.launch {
+                    _uiEvent.emit(UiEvent.RequestBiometricAuth)
+                }
+            }
+            else {
+                executeUnlockDoor()
             }
         }
     }

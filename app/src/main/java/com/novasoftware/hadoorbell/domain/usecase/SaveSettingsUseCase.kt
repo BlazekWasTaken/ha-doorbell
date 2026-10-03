@@ -14,6 +14,7 @@ class SaveSettingsUseCase @Inject constructor(
             source = settings.streamSource,
             quickReplyEntityId = settings.quickReplyEntityId,
             lockEntityId = settings.lockEntityId,
+            lockAuthenticationEnabled = settings.lockAuthenticationEnabled,
             instantTwoWayAudio = settings.instantTwoWayAudio,
             provider = settings.webrtcProvider
         )

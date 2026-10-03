@@ -241,6 +241,23 @@ fun SettingsScreen(
                         )
                     }
 
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            stringResource(R.string.settings_authentication_enabled),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = if (uiState.quickReplyEntityId.isBlank()) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                        )
+                        Switch(
+                            checked = uiState.lockAuthenticationEnabled,
+                            onCheckedChange = { viewModel.updateLockAuthenticationEnabled(it) },
+                            modifier = Modifier.testTag("authentication_enabled_switch")
+                        )
+                    }
+
                     OutlinedTextField(
                         value = uiState.quickReplyEntityId,
                         onValueChange = { viewModel.updateQuickReplyEntityId(it) },

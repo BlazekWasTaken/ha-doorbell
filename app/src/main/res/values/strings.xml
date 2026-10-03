@@ -12,6 +12,7 @@
     <string name="settings_integrations_optional">Integrations (Optional)</string>
     <string name="settings_integrations_desc">If you have a select entity for quick replies or a lock entity to open your door, enter their IDs below.</string>
     <string name="settings_instant_2way">Connect in 2-way mode instantly</string>
+    <string name="settings_authentication_enabled">Use authentication for lock unlocking</string>
     <string name="settings_quick_reply_id">Quick Reply Entity ID</string>
     <string name="settings_door_lock_id">Door Lock Entity ID</string>
     
